@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frogs — small, wet, and loud</title>
+<meta name="description" content="A short, friendly introduction to frogs: how they grow, where they live, and what makes them wonderful.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky: #EDE9D9;
+  --ink: #1B2420;
+  --ink-muted: #4B5249;
+  --water-deep: #0B2B23;
+  --deep: #05211A;
+  --frog: #FFC145;
+  --pale: #EAF1E6;
+  --pale-muted: #B9C9B4;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font: 400 1.125rem/1.7 "Source Serif 4", Georgia, serif;
+  background: var(--water-deep);
+  color: var(--pale);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection { background: var(--frog); color: var(--water-deep); }
+
+:focus-visible { outline: 3px solid var(--frog); outline-offset: 3px; }
+
+.wrap { max-width: 1060px; margin-inline: auto; padding-inline: clamp(1.25rem, 5vw, 3rem); }
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 10;
+  padding: 0.6rem 1rem;
+  background: var(--water-deep);
+  color: var(--sky);
+  border-radius: 0.4rem;
+  text-decoration: none;
+  transform: translateY(-250%);
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* Header */
+.site-header { background: var(--sky); padding: 1.25rem 0; }
+.site-header__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.wordmark {
+  font: 600 1.35rem "Fredoka", "Trebuchet MS", sans-serif;
+  color: var(--ink);
+  text-decoration: none;
+}
+.site-nav { display: flex; gap: 1.5rem; }
+.site-nav a {
+  font: 500 1.05rem "Fredoka", "Trebuchet MS", sans-serif;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: rgba(27, 36, 32, 0.35);
+  text-underline-offset: 4px;
+}
+.site-nav a:hover { text-decoration-color: currentColor; }
+
+/* Hero */
+.hero {
+  --pond-h: clamp(160px, 34vh, 340px);
+  position: relative;
+  background: var(--sky);
+  padding: clamp(3.5rem, 10vh, 6.5rem) 0 clamp(220px, 44vh, 430px);
+  overflow: clip;
+}
+.hero h1 {
+  font: 600 clamp(2.5rem, 6.5vw, 4.75rem)/1.02 "Fredoka", "Trebuchet MS", sans-serif;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  max-width: 16ch;
+  margin: 0;
+}
+.hero__lede {
+  max-width: 62ch;
+  margin: 1.5rem 0 0;
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  color: #49524A;
+}
+.hero__pond {
+  position: absolute;
+  left: -12%;
+  right: -12%;
+  bottom: 0;
+  height: var(--pond-h);
+  background: var(--water-deep);
+  border-radius: 50% 50% 0 0 / 34% 34% 0 0;
+}
+.pond-notch { fill: var(--water-deep); }
+.hero__pad { position: absolute; bottom: 60%; }
+.hero__pad--left { left: 10%; width: clamp(70px, 12vw, 130px); }
+.hero__pad--right { right: 10%; width: clamp(50px, 9vw, 95px); transform: scaleX(-1) rotate(-8deg); }
+.hero__frog {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(var(--pond-h) - 52px);
+  width: clamp(120px, 22vw, 210px);
+}
+.hero__frog svg { display: block; width: 100%; }
+.frog-lid {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: frog-blink 4.6s infinite;
+}
+@keyframes frog-blink {
+  0%, 92%, 100% { transform: scaleY(0); }
+  94%, 96% { transform: scaleY(1); }
+}
+
+/* Sections */
+.section { padding: clamp(3.5rem, 10vh, 6.5rem) 0; }
+.section--water { background: var(--water-deep); color: var(--pale); }
+.section--sky { background: var(--sky); color: var(--ink); }
+.section h2 {
+  font: 600 clamp(1.9rem, 4.5vw, 2.7rem)/1.1 "Fredoka", "Trebuchet MS", sans-serif;
+  margin: 0 0 1rem;
+}
+.section__lede { max-width: 60ch; margin: 0 0 3rem; }
+.section--water .section__lede { color: var(--pale-muted); }
+.section--sky .section__lede { color: var(--ink-muted); }
+
+/* Lifecycle */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.step__num {
+  font: 500 1rem "Fredoka", "Trebuchet MS", sans-serif;
+  color: var(--frog);
+  margin: 0;
+}
+.step h3 {
+  font: 500 1.3rem "Fredoka", "Trebuchet MS", sans-serif;
+  margin: 0.35rem 0 0.5rem;
+}
+.step p { margin: 0; font-size: 1.05rem; line-height: 1.6; color: var(--pale-muted); }
+
+/* Species */
+.species { list-style: none; margin: 0; padding: 0; }
+.species li {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  column-gap: 1rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(27, 36, 32, 0.18);
+}
+.species li:first-child { border-top: 1px solid rgba(27, 36, 32, 0.18); }
+.species__dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--dot);
+  margin-top: 0.5rem;
+}
+.species h3 { font: 500 1.35rem "Fredoka", "Trebuchet MS", sans-serif; margin: 0 0 0.2rem; }
+.species p { margin: 0; max-width: 65ch; }
+.species__where { display: block; margin-top: 0.35rem; font-size: 0.95rem; color: var(--ink-muted); }
+
+/* Facts */
+.facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 3rem) clamp(2.5rem, 5vw, 4rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.facts li { position: relative; padding-left: 1.75rem; }
+.facts li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--frog);
+}
+.facts h3 { font: 500 1.2rem "Fredoka", "Trebuchet MS", sans-serif; margin: 0 0 0.35rem; }
+.facts p { margin: 0; color: var(--pale-muted); }
+
+/* Waves */
+.wave { display: block; line-height: 0; background: var(--water-deep); }
+.wave svg { display: block; width: 100%; height: clamp(42px, 8vw, 96px); }
+.wave--to-water { background: var(--sky); }
+.wave--to-deep { background: var(--water-deep); }
+
+/* Footer */
+.site-footer { background: var(--deep); color: var(--pale); padding: 3rem 0 3.5rem; }
+.site-footer__wordmark {
+  font: 600 1.3rem "Fredoka", "Trebuchet MS", sans-serif;
+  margin: 0 0 0.75rem;
+}
+.site-footer p { margin: 0.35rem 0 0; }
+.site-footer__note { color: var(--pale-muted); font-size: 1rem; }
+
+/* Small screens */
+@media (max-width: 760px) {
+  .steps { grid-template-columns: 1fr; gap: 2rem; }
+  .facts { grid-template-columns: 1fr; }
+  .site-nav { gap: 1rem; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .frog-lid { animation: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap site-header__row">
+    <a class="wordmark" href="#top">Frogs</a>
+    <nav class="site-nav" aria-label="Sections">
+      <a href="#lifecycle">Lifecycle</a>
+      <a href="#species">Species</a>
+      <a href="#facts">Frog facts</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" id="top">
+    <div class="wrap">
+      <h1>Small, wet, and louder than you'd think</h1>
+      <p class="hero__lede">Frogs have been hopping around for about 250 million years — they watched the dinosaurs come and go. Today more than seven thousand species live on every continent except Antarctica, from rainforest canopies to desert sand.</p>
+    </div>
+    <div class="hero__pond" aria-hidden="true">
+      <svg class="hero__pad hero__pad--left" viewBox="0 0 120 60">
+        <ellipse cx="60" cy="32" rx="50" ry="21" fill="#3F7D3B"/>
+        <path class="pond-notch" d="M 60 11 L 100 24 L 60 45 Z"/>
+      </svg>
+      <svg class="hero__pad hero__pad--right" viewBox="0 0 120 60">
+        <ellipse cx="60" cy="32" rx="42" ry="17" fill="#4E8F3F"/>
+        <path class="pond-notch" d="M 60 15 L 18 26 L 60 47 Z"/>
+      </svg>
+      <div class="hero__frog">
+        <svg viewBox="0 0 200 150" focusable="false">
+          <ellipse cx="100" cy="82" rx="62" ry="44" fill="#69B34C"/>
+          <circle cx="74" cy="96" r="7" fill="#4E8F3F"/>
+          <circle cx="128" cy="90" r="5" fill="#4E8F3F"/>
+          <circle cx="112" cy="108" r="4" fill="#4E8F3F"/>
+          <circle cx="68" cy="46" r="26" fill="#69B34C"/>
+          <circle cx="132" cy="46" r="26" fill="#69B34C"/>
+          <circle cx="68" cy="44" r="17" fill="#F4F6E8"/>
+          <circle cx="132" cy="44" r="17" fill="#F4F6E8"/>
+          <circle cx="68" cy="46" r="9" fill="#0B2B23"/>
+          <circle cx="132" cy="46" r="9" fill="#0B2B23"/>
+          <circle cx="65" cy="42" r="3" fill="#F4F6E8"/>
+          <circle cx="129" cy="42" r="3" fill="#F4F6E8"/>
+          <circle class="frog-lid" cx="68" cy="44" r="17" fill="#4E8F3F"/>
+          <circle class="frog-lid" cx="132" cy="44" r="17" fill="#4E8F3F"/>
+          <circle cx="88" cy="66" r="3" fill="#3E7A44"/>
+          <circle cx="112" cy="66" r="3" fill="#3E7A44"/>
+          <path d="M 76 98 Q 100 110 124 98" fill="none" stroke="#3E7A44" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="100" cy="134" rx="74" ry="11" fill="none" stroke="#9FC5A8" stroke-width="2" opacity="0.7"/>
+          <ellipse cx="100" cy="143" rx="100" ry="13" fill="none" stroke="#9FC5A8" stroke-width="2" opacity="0.45"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--water" id="lifecycle">
+    <div class="wrap">
+      <h2>From egg to frog</h2>
+      <p class="section__lede">Every frog starts life underwater. Most species make the whole journey in a few weeks to a few months.</p>
+      <ol class="steps">
+        <li class="step">
+          <p class="step__num">01</p>
+          <h3>Egg</h3>
+          <p>Laid in water by the hundreds or thousands, each egg is wrapped in jelly.</p>
+        </li>
+        <li class="step">
+          <p class="step__num">02</p>
+          <h3>Tadpole</h3>
+          <p>Out swims a tadpole: gills for breathing, a tail for steering, and a taste for algae.</p>
+        </li>
+        <li class="step">
+          <p class="step__num">03</p>
+          <h3>Froglet</h3>
+          <p>Legs sprout, lungs develop, and the tail shrinks away. The froglet is a tiny frog with a stub.</p>
+        </li>
+        <li class="step">
+          <p class="step__num">04</p>
+          <h3>Frog</h3>
+          <p>The adult climbs out of the water and splits its life between the pond and the land.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="wave wave--to-sky" aria-hidden="true">
+    <svg viewBox="0 0 1440 110" preserveAspectRatio="none">
+      <path d="M0,64 C240,112 480,18 720,44 C960,70 1200,14 1440,46 L1440,110 L0,110 Z" fill="var(--sky)"/>
+    </svg>
+  </div>
+
+  <section class="section section--sky" id="species">
+    <div class="wrap">
+      <h2>A few of the thousands</h2>
+      <p class="section__lede">Every one of them is odd in its own way. Here are five.</p>
+      <ul class="species">
+        <li style="--dot:#E4572E">
+          <span class="species__dot" aria-hidden="true"></span>
+          <div>
+            <h3>Red-eyed tree frog</h3>
+            <p>Sleeps all day with its bright red eyes shut — and flashes them open to startle predators at night.
+              <span class="species__where">Rainforests of Central America</span>
+            </p>
+          </div>
+        </li>
+        <li style="--dot:#FFC145">
+          <span class="species__dot" aria-hidden="true"></span>
+          <div>
+            <h3>Golden poison frog</h3>
+            <p>The most poisonous frog on Earth. Its skin toxin was once used to tip hunting darts.
+              <span class="species__where">Colombian rainforest</span>
+            </p>
+          </div>
+        </li>
+        <li style="--dot:#7FD1AE">
+          <span class="species__dot" aria-hidden="true"></span>
+          <div>
+            <h3>Glass frog</h3>
+            <p>Skin so clear on the belly you can watch its heart beat and its organs work.
+              <span class="species__where">Central and South America</span>
+            </p>
+          </div>
+        </li>
+        <li style="--dot:#D9C27F">
+          <span class="species__dot" aria-hidden="true"></span>
+          <div>
+            <h3>Desert rain frog</h3>
+            <p>A round, grumpy sand-dweller that squeaks like a rubber toy to defend its burrow.
+              <span class="species__where">Coastal deserts of Namibia and South Africa</span>
+            </p>
+          </div>
+        </li>
+        <li style="--dot:#5B8C4E">
+          <span class="species__dot" aria-hidden="true"></span>
+          <div>
+            <h3>American bullfrog</h3>
+            <p>A deep croak that carries across the pond — and an appetite for almost anything that fits in its mouth.
+              <span class="species__where">Wetlands across North America</span>
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="wave wave--to-water" aria-hidden="true">
+    <svg viewBox="0 0 1440 110" preserveAspectRatio="none">
+      <path d="M0,74 C220,20 500,104 760,72 C1020,40 1260,96 1440,58 L1440,110 L0,110 Z" fill="var(--water-deep)"/>
+    </svg>
+  </div>
+
+  <section class="section section--water" id="facts">
+    <div class="wrap">
+      <h2>Frog facts</h2>
+      <p class="section__lede">Four things worth knowing before you meet one.</p>
+      <ul class="facts">
+        <li>
+          <h3>Skin does the drinking</h3>
+          <p>Frogs absorb water straight through their belly skin. They never take a sip.</p>
+        </li>
+        <li>
+          <h3>Skin does the breathing</h3>
+          <p>Most frogs take in oxygen through their skin as well as their lungs — which is why they stay damp.</p>
+        </li>
+        <li>
+          <h3>Tongue out, catch, back</h3>
+          <p>The whole trip takes about a tenth of a second. Flies don't stand a chance.</p>
+        </li>
+        <li>
+          <h3>Everywhere but Antarctica</h3>
+          <p>Frogs live on every continent except the frozen one, from rainforests to deserts to back gardens.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="wave wave--to-deep" aria-hidden="true">
+    <svg viewBox="0 0 1440 110" preserveAspectRatio="none">
+      <path d="M0,84 C360,40 720,96 1080,62 C1260,48 1360,72 1440,64 L1440,110 L0,110 Z" fill="var(--deep)"/>
+    </svg>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="site-footer__wordmark">Frogs</p>
+      <p>Frogs don't give you warts — that one's a myth.</p>
+      <p class="site-footer__note">Made with fondness for amphibians.</p>
+    </div>
+  </footer>
+
+</main>
+</body>
+</html>
